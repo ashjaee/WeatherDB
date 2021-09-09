@@ -31,8 +31,8 @@ def regDb(city,tem,hud):
     def insert(city,tem,hud):
         try:
             with conn.cursor() as cursor:
-                 query1 = f"""insert into weather values ('{city}','{tem}','{hud}')"""
-                 cursor.execute(query1)
+                 query = f"""insert into weather values ('{city}','{tem}','{hud}')"""
+                 cursor.execute(query)
                  conn.commit()
         finally:
             conn.close()
