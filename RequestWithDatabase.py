@@ -1,6 +1,7 @@
 import requests 
 import json
 import time
+import psycopg2
 
 def reqF (loc):
     for count in range (5):
@@ -14,6 +15,20 @@ def reqF (loc):
         print("humidity :  {}".format(data['main']['humidity']))
         print("time :      {}".format(time.ctime(int(data['dt']))))
         time.sleep(5)
+
+def regDb():
+    import psycopg2
+try:
+    conn = psycopg2.connect(
+        host = '127.0.0.1', #or 'localhost'
+        user = 'postgres',
+        password = '2727',
+        database = 'ashjaeiDb')
+    print("Connection to database succeeded...")
+except:
+    print("Connection to database failed...")        
+    conn.close()
+
 
 while True :
     location = input('Enter Your City (for exit type end)...: ')
