@@ -16,19 +16,27 @@ def reqF (loc):
         print("time :      {}".format(time.ctime(int(data['dt']))))
         time.sleep(5)
 
-def regDb():
-    import psycopg2
-try:
-    conn = psycopg2.connect(
+def regDb(city,tem,hud):
+    try:
+        conn = psycopg2.connect(
         host = '127.0.0.1', #or 'localhost'
         user = 'postgres',
         password = '2727',
         database = 'ashjaeiDb')
-    print("Connection to database succeeded...")
-except:
-    print("Connection to database failed...")        
-    conn.close()
-
+        print("Connection to database succeeded...")
+    except:
+        print("Connection to database failed...")        
+        conn.close()
+    
+    def insert(city,tem,hud):
+        try:
+            with conn.cursor() as cursor:
+                 query1 = f"""insert into weather values ('{city}','{tem}','{hud}')"""
+                 cursor.execute(query1)
+                 conn.commit()
+        finally:
+            conn.close()
+       
 
 while True :
     location = input('Enter Your City (for exit type end)...: ')
